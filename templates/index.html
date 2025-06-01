@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Duygu Analizi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Duygu Analizi</h2>
+
+        <form method="post" action="/predict">
+            <label for="username">👤 Kullanıcı Adı:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="text">🖊️ Metin:</label>
+            <textarea id="text" name="text" rows="4" required></textarea>
+
+            <button type="submit">Tahmin Et</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result">
+            🔍 <strong>Tahmin:</strong> {{ prediction }}
+        </div>
+        {% endif %}
+
+        {% if history %}
+        <div class="history">
+            <h4>🕘 Geçmiş:</h4>
+            <ul>
+                {% for item in history %}
+                <li><strong>{{ item.user }}</strong>: "{{ item.text }}" → <em>{{ item.prediction }}</em></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
